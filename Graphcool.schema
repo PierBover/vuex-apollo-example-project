@@ -1,0 +1,33 @@
+﻿type Color implements Node {
+  createdAt: DateTime!
+  fruits: [Fruit!]! @relation(name: "FruitOnColor")
+  hex: String!
+  id: ID! @isUnique
+  name: String!
+  updatedAt: DateTime!
+}
+
+type File implements Node {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime!
+  url: String! @isUnique
+}
+
+type Fruit implements Node {
+  color: Color @relation(name: "FruitOnColor")
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  updatedAt: DateTime!
+}
+
+type User implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+}
