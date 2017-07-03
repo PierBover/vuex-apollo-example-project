@@ -6,9 +6,9 @@ import gql from 'graphql-tag';
 
 Vue.use(Vuex);
 
-// apolloClient.subscribe returns an Observer instance
-// I've put the observer here for simplicity but this should go into its own module
-const fruitsSubscriptionObserver = apolloClient.subscribe({
+// apolloClient.subscribe returns an Observable instance
+// I've put the observer and observable here for simplicity but this should go into its own module
+const fruitsSubscriptionObservable = apolloClient.subscribe({
 	query: gql`
 		subscription {
 			Fruit {
@@ -27,6 +27,8 @@ const fruitsSubscriptionObserver = apolloClient.subscribe({
 		}
 	`,
 });
+
+let fruitsSubscriptionObserver;
 
 const store = new Vuex.Store({
 	state: {
@@ -72,7 +74,7 @@ const store = new Vuex.Store({
 		},
 		// You call this action to start the sunscription
 		subscribeToFruits(context){
-			fruitsSubscriptionObserver.subscribe({
+			fruitsSubscriptionObserver = fruitsSubscriptionObserver.subscribe({
 				next(data){
 					// mutation will say the type of GraphQL mutation `CREATED`, `UPDATED` or `DELETED`
 					console.log(data.Fruit.mutation);
@@ -98,7 +100,10 @@ const store = new Vuex.Store({
 		},
 		// You call this action to stop the subscription
 		unsubscribeFromFruits(context){
-			fruitsSubscriptionObserver.unsubscribe();
+			if (fruitsSubscriptionObserver) {
+				fruitsSubscriptionObserver.unsubscribe();
+				fruitsSubscriptionObserver = null;
+			}
 		},
 	}
 });
