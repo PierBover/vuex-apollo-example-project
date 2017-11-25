@@ -74,7 +74,7 @@ const store = new Vuex.Store({
 		},
 		// You call this action to start the sunscription
 		subscribeToFruits(context){
-			fruitsSubscriptionObserver = fruitsSubscriptionObserver.subscribe({
+			fruitsSubscriptionObserver = fruitsSubscriptionObservable.subscribe({
 				next(data){
 					// mutation will say the type of GraphQL mutation `CREATED`, `UPDATED` or `DELETED`
 					console.log(data.Fruit.mutation);
@@ -101,7 +101,7 @@ const store = new Vuex.Store({
 		// You call this action to stop the subscription
 		unsubscribeFromFruits(context){
 			if (fruitsSubscriptionObserver) {
-				fruitsSubscriptionObserver.unsubscribe();
+				fruitsSubscriptionObservable.unsubscribe();
 				fruitsSubscriptionObserver = null;
 			}
 		},
