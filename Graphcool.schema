@@ -1,4 +1,4 @@
-﻿type Color implements Node {
+﻿type Color @model {
   createdAt: DateTime!
   fruits: [Fruit!]! @relation(name: "FruitOnColor")
   hex: String!
@@ -7,7 +7,7 @@
   updatedAt: DateTime!
 }
 
-type File implements Node {
+type File @model {
   contentType: String!
   createdAt: DateTime!
   id: ID! @isUnique
@@ -18,7 +18,7 @@ type File implements Node {
   url: String! @isUnique
 }
 
-type Fruit implements Node {
+type Fruit @model {
   color: Color @relation(name: "FruitOnColor")
   createdAt: DateTime!
   id: ID! @isUnique
@@ -26,7 +26,7 @@ type Fruit implements Node {
   updatedAt: DateTime!
 }
 
-type User implements Node {
+type User @model {
   createdAt: DateTime!
   id: ID! @isUnique
   updatedAt: DateTime!
