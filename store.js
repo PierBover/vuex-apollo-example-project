@@ -101,7 +101,7 @@ const store = new Vuex.Store({
 		// You call this action to stop the subscription
 		unsubscribeFromFruits(context){
 			if (fruitsSubscriptionObserver) {
-				fruitsSubscriptionObservable.unsubscribe();
+				fruitsSubscriptionObserver.unsubscribe();
 				fruitsSubscriptionObserver = null;
 			}
 		},
